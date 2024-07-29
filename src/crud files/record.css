@@ -1,0 +1,15 @@
+.form {
+  /* background-color: antiquewhite; */
+}
+label {
+  width: 100%;
+}
+label input {
+  width: 500px;
+}
+table tr th {
+  text-align: center;
+}
+table tr td {
+  text-align: center;
+}
