@@ -18,7 +18,7 @@ function App() {
 
     let obj = {
       id: Date.now(),
-      name, email, phone
+      name, email, phone, status: 'active',
     }
 
 
@@ -30,7 +30,7 @@ function App() {
             ...val,
             name,
             email,
-            phone
+            phone,
           }
         }
         return val;
@@ -62,7 +62,7 @@ function App() {
   }
 
   //multiple delete
-  const handleMultipleDel = (mdelete) => {
+  const handleMultipleDel = (mdelete, clearSection) => {
     let yes = confirm("deletd Records...??");
     // console.log(mdelete);
     if (yes) {
@@ -71,6 +71,7 @@ function App() {
         setUser(updatedRecord)
         localStorage.setItem('users', JSON.stringify(updatedRecord))
         alert('record successfully deleted...!')
+        clearSection();
       }
       else {
         alert("select at least one record..")
@@ -81,6 +82,28 @@ function App() {
     }
   }
 
+  //multiple status change
+  const handleMultileStatusChange = (mstatus, clearSection) => {
+    console.log(mstatus);
+    if (mstatus > 0) {
+      let updatedStatus = user.map((val) => {
+        if (mstatus.includes(val.id)) {
+          return {
+            ...val,
+            status: val.status == 'active' ? 'inactive' : 'active',
+          }
+        }
+        return val;
+      })
+      setUser(updatedStatus)
+      localStorage.setItem('users', JSON.stringify(updatedStatus));
+      clearSection();
+      alert("Status changed...!! ")
+    }
+    else {
+      alert("select at least one record..");
+    }
+  }
   return (
     <>
       <Record
@@ -92,6 +115,7 @@ function App() {
         handleDelete={handleDelete}
         handleEdit={handleEdit}
         handleMultipleDel={handleMultipleDel}
+        handleMultileStatusChange={handleMultileStatusChange}
       />
     </>
   )
